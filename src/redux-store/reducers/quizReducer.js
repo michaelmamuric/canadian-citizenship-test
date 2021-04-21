@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     isLoading: false,
-    isQuizStarted: false
+    isQuizStarted: false,
+    currentQuestion: 0,
+    questions: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +19,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isQuizStarted: action.quizStatus
+            }
+        }
+        case actionTypes.INIT_QUESTIONS: {
+            return {
+                ...state,
+                questions: state.questions.concat(action.questions)
             }
         }
         default:

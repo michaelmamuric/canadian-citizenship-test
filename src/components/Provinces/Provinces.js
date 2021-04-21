@@ -1,4 +1,6 @@
 import { Select } from '@chakra-ui/react';
+import { connect } from 'react-redux';
+import * as actions from '../../redux-store/actions/index';
 
 // Provinces
 const options = [
@@ -17,12 +19,13 @@ const options = [
     { name: "Yukon", abbr: "YT" }
 ];
 
-// Handler when <Select> changes
-const selectChangeHandler = (event) => {
-  console.log('Selected province', event.target.value);
-}
+const Provinces = (props) => {
 
-const Provinces = () => {
+    // Handler when <Select> changes
+    const selectChangeHandler = (event) => {
+      props.fetchQuestions(event.target.value);
+    }
+
     return (
         <Select placeholder="Province" onChange={selectChangeHandler}>
         {
@@ -34,4 +37,10 @@ const Provinces = () => {
     )
 }
 
-export default Provinces;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchQuestions: (province) => dispatch(actions.fetchQuestions(province))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Provinces);

@@ -1,16 +1,24 @@
-import React from 'react';
+import { connect } from 'react-redux';
 import { ChakraProvider, theme, Container } from '@chakra-ui/react';
 import Provinces from './components/Provinces/Provinces';
+import Quiz from './components/Quiz/Quiz';
 
-const App = () => {
+const App = (props) => {
   return (
     <ChakraProvider theme={theme}>
       <Container>
-        Welcome! Please select your province to begin.
-        <Provinces />
+        {
+          props.isQuizStarted && !props.isLoading ? <Quiz /> : <Provinces />
+        }
       </Container>
     </ChakraProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isQuizStarted: state.quiz.isQuizStarted
+  }
+}
+
+export default connect(mapStateToProps,null)(App);
