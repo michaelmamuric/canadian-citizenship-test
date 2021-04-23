@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ChakraProvider, theme, Container } from '@chakra-ui/react';
-import Provinces from './components/Provinces/Provinces';
+import LandingPage from './components/LandingPage/LandingPage';
 import Quiz from './components/Quiz/Quiz';
 
 const App = (props) => {
@@ -8,7 +8,7 @@ const App = (props) => {
     <ChakraProvider theme={theme}>
       <Container>
         {
-          props.isQuizStarted && !props.isLoading ? <Quiz /> : <Provinces />
+          !props.isQuizStarted ? <LandingPage /> : <Quiz />
         }
       </Container>
     </ChakraProvider>

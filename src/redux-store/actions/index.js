@@ -1,5 +1,7 @@
 export {
     setLoading,
     setQuizStarted,
-    fetchQuestions
+    fetchQuestions,
+    setQuestionIndex,
+    setScore
 } from './quizActions';

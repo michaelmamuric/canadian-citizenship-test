@@ -22,6 +22,20 @@ export const initializeQuestions = (questions) => {
     }
 }
 
+export const setQuestionIndex = (index) => {
+    return {
+        type: actions.SET_QUESTION_INDEX,
+        index
+    }
+}
+
+export const setScore = (score) => {
+    return {
+        type: actions.SET_SCORE,
+        score
+    }
+}
+
 export const fetchQuestions = (province) => {
     return async(dispatch) => {
         try {

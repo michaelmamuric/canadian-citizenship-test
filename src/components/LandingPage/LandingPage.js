@@ -1,6 +1,7 @@
 import { Select } from '@chakra-ui/react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux-store/actions/index';
+import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay';
 
 // Provinces
 const options = [
@@ -19,14 +20,18 @@ const options = [
     { name: "Yukon", abbr: "YT" }
 ];
 
-const Provinces = (props) => {
+const LandingPage = (props) => {
+
+    // Destructure from props for easier referencing
+    const { fetchQuestions, isLoading } = props;
 
     // Handler when <Select> changes
     const selectChangeHandler = (event) => {
-      props.fetchQuestions(event.target.value);
+      fetchQuestions(event.target.value);
     }
 
-    return (
+    // Component to Render
+    let componentToRender = (
         <Select placeholder="Province" onChange={selectChangeHandler}>
         {
           options.map((province, index) => {
@@ -34,13 +39,28 @@ const Provinces = (props) => {
           })
         }
         </Select>
-    )
+    );
+
+    // Render when page is loading
+    if(isLoading) {
+        componentToRender = <SkeletonDisplay />;
+    }
+
+    return componentToRender;
 }
 
+// Map Redux State
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.quiz.isLoading
+    }
+}
+
+// Map Redux Actions
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchQuestions: (province) => dispatch(actions.fetchQuestions(province))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Provinces);
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

@@ -4,6 +4,7 @@ const initialState = {
     isLoading: false,
     isQuizStarted: false,
     currentQuestion: 0,
+    score: 0,
     questions: []
 }
 
@@ -27,8 +28,20 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions.concat(action.questions)
             }
         }
+        case actionTypes.SET_QUESTION_INDEX: {
+            return {
+                ...state,
+                currentQuestion: action.index
+            }
+        }
+        case actionTypes.SET_SCORE: {
+            return {
+                ...state,
+                score: action.score
+            }
+        }
         default:
-            return state
+            return state;
     }
 }
 
