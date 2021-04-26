@@ -4,7 +4,6 @@ import Choices from './Choices/Choices';
 const Quiz = (props) => {
     // Destructure from props for easier referencing
     const { questions, currentQuestion, score } = props;
-
     return (
         <>
             <div>

@@ -1,23 +1,28 @@
 import { Radio, RadioGroup } from '@chakra-ui/radio';
 import { Stack } from '@chakra-ui/react';
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@chakra-ui/react';
+import arrayShuffle from 'array-shuffle';
 import * as actions from '../../../redux-store/actions/index';
 
 const Choices = (props) => {
 
     // Destructure from props
-    const { score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion } = props;
+    const { score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList } = props;
 
     // States
     const [answer, setAnswer] = useState('');
     const [answerSelected, setAnswerSelected] = useState(false);
 
+    // Create a memoized version of the choices to avoid reshuffling of choices
+    // when an answer is picked
+    const memoizedChoices = useMemo(() => arrayShuffle(choiceList), [choiceList]);
+
     // Handler when a choice is selected
-    const answerSelectedHandler = () => {
+    const answerSelectedHandler = () => { 
         setAnswerSelected(true);
-        
+
         if(answer === correctAnswer) {
             setScore(score + 1);
         }
@@ -35,18 +40,18 @@ const Choices = (props) => {
         <RadioGroup onChange={answerSelectedHandler}>
             <Stack>
             {
-                props.choiceList.map((choice, index) => {
+                memoizedChoices.map((choice, index) => {
                     return (
                         <Radio 
                             key={index} 
                             value={choice}
                             onClick={() => setAnswer(choice)}
                             isDisabled={answerSelected}
-                            isFocusable={answerSelected}
+                            isFocusable={answerSelected}                
                         >
-                            <span onClick={() => setAnswer(choice)}>
-                                {choice}
-                            </span>
+                        <span onClick={() => setAnswer(choice)}>
+                            {choice}
+                        </span>
                         </Radio>
                     )
                 })
