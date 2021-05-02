@@ -36,6 +36,13 @@ export const setScore = (score) => {
     }
 }
 
+export const setError = (error) => {
+    return {
+        type: actions.SET_ERROR,
+        error 
+    }
+}
+
 export const fetchQuestions = (province) => {
     return async(dispatch) => {
         try {
@@ -57,6 +64,10 @@ export const fetchQuestions = (province) => {
         catch(error) {
             // Set loading to false
             dispatch(setLoading(false));
+
+            console.log('Error', error);
+            // Set error
+            dispatch(setError(error.message));
         }
     }
 }

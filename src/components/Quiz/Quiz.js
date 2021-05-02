@@ -4,16 +4,15 @@ import Choices from './Choices/Choices';
 const Quiz = (props) => {
     // Destructure from props for easier referencing
     const { questions, currentQuestion, score } = props;
+
     return (
         <>
-            <div>
-                { questions[currentQuestion].question }
-            </div>
-            <Choices 
+            <Choices
+                question={questions[currentQuestion].question}
                 choiceList={questions[currentQuestion].choices} 
                 correctAnswer={questions[currentQuestion].correctAnswer} 
             />
-            <div>Score: {score}</div>
+            <div>Score: {score}</div>    
         </>
     )
 }

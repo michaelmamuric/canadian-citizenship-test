@@ -1,15 +1,16 @@
 import { Radio, RadioGroup } from '@chakra-ui/radio';
-import { Stack } from '@chakra-ui/react';
 import { connect } from 'react-redux';
 import { useState, useMemo } from 'react';
 import { Button } from '@chakra-ui/react';
 import arrayShuffle from 'array-shuffle';
+import { CheckCircleIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 import * as actions from '../../../redux-store/actions/index';
 
 const Choices = (props) => {
 
     // Destructure from props
-    const { score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList } = props;
+    const { question, score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList } = props;
 
     // States
     const [answer, setAnswer] = useState('');
@@ -37,28 +38,47 @@ const Choices = (props) => {
 
     return (
         <>
+        <motion.div
+            initial={{ y: -50 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1}}
+        >
+            {question}
+        </motion.div>
         <RadioGroup onChange={answerSelectedHandler}>
-            <Stack>
             {
                 memoizedChoices.map((choice, index) => {
                     return (
-                        <Radio 
-                            key={index} 
-                            value={choice}
-                            onClick={() => setAnswer(choice)}
-                            isDisabled={answerSelected}
-                            isFocusable={answerSelected}                
+                        <motion.div
+                            initial={{ y: 1000 }}
+                            animate={{ y: 0 }}
+                            transition={ { duration: 2 } }                          
                         >
-                        <span onClick={() => setAnswer(choice)}>
-                            {choice}
-                        </span>
-                        </Radio>
+                            <Radio 
+                                key={index} 
+                                value={choice}
+                                onClick={() => setAnswer(choice)}
+                                isReadOnly={answerSelected}
+                            >
+                            <motion.div 
+                                onClick={() => setAnswer(choice)}
+                                style={{display: 'inline-block'}}
+                                whileHover={{ scale: 1.05 }}                                  
+                            >
+                                {choice}
+                            </motion.div>
+                            &nbsp;
+                            {   
+                                answerSelected &&
+                                ( correctAnswer === choice ? <CheckCircleIcon /> : <SmallCloseIcon />)
+                            }
+                            </Radio>
+                        </motion.div>
                     )
                 })
             }
-            </Stack>
         </RadioGroup>
-        <Button onClick={nextButtonHandler}>Next</Button>
+        <Button onClick={nextButtonHandler} isDisabled={!answerSelected}>Next</Button>
         </>
     )
 }

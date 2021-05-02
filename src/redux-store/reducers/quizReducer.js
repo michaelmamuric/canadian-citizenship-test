@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     isLoading: false,
     isQuizStarted: false,
+    error: null,
     currentQuestion: 0,
     score: 0,
     questions: []
@@ -14,6 +15,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: action.loadingStatus
+            }
+        }
+        case actionTypes.SET_ERROR: {
+            return {
+                ...state,
+                error: action.error
             }
         }
         case actionTypes.SET_QUIZ_STARTED: {
