@@ -10,7 +10,7 @@ import * as actions from '../../../redux-store/actions/index';
 const Choices = (props) => {
 
     // Destructure from props
-    const { question, score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList } = props;
+    const { question, score, setScore, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList, setQuizStatus } = props;
 
     // States
     const [answer, setAnswer] = useState('');
@@ -31,54 +31,63 @@ const Choices = (props) => {
 
     // Handler when the Next button is clicked
     const nextButtonHandler = () => {
-        setCurrentQuestionIndex(currentQuestion + 1);
-        setAnswer('');
-        setAnswerSelected(false);
+        // Quiz is still in progress
+        if(currentQuestion < 19) {
+            setCurrentQuestionIndex(currentQuestion + 1);
+            setAnswer('');
+            setAnswerSelected(false);
+        }
+        // All questions have been asked
+        else {
+            setQuizStatus(3);
+        }
     }
 
     return (
         <>
-        <motion.div
+        <motion.h1
             initial={{ y: -50 }}
             animate={{ y: 0 }}
             transition={{ duration: 1}}
         >
             {question}
-        </motion.div>
+        </motion.h1>
         <RadioGroup onChange={answerSelectedHandler}>
+            <ul style={{listStyleType: 'none'}}>
             {
                 memoizedChoices.map((choice, index) => {
                     return (
-                        <motion.div
+                        <motion.li
+                            key={index}
                             initial={{ y: 1000 }}
                             animate={{ y: 0 }}
-                            transition={ { duration: 2 } }                          
+                            transition={ { duration: 2 } }
+                            onClick={() => setAnswer(choice)}                          
                         >
                             <Radio 
-                                key={index} 
                                 value={choice}
                                 onClick={() => setAnswer(choice)}
+                                isChecked={answerSelected}
                                 isReadOnly={answerSelected}
                             >
-                            <motion.div 
-                                onClick={() => setAnswer(choice)}
-                                style={{display: 'inline-block'}}
-                                whileHover={{ scale: 1.05 }}                                  
-                            >
+                            <motion.span whileHover={{ scale: 1.05}}>
                                 {choice}
-                            </motion.div>
+                            </motion.span>
                             &nbsp;
                             {   
                                 answerSelected &&
                                 ( correctAnswer === choice ? <CheckCircleIcon /> : <SmallCloseIcon />)
                             }
                             </Radio>
-                        </motion.div>
+                        </motion.li>
                     )
                 })
             }
+        </ul>
         </RadioGroup>
-        <Button onClick={nextButtonHandler} isDisabled={!answerSelected}>Next</Button>
+        <Button onClick={nextButtonHandler} isDisabled={!answerSelected}>
+            { currentQuestion < 19 ? 'Next' : 'Finish' }
+        </Button>
         </>
     )
 }
@@ -95,7 +104,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setScore: (score) => dispatch(actions.setScore(score)),
-        setCurrentQuestionIndex: (index) => dispatch(actions.setQuestionIndex(index)) 
+        setCurrentQuestionIndex: (index) => dispatch(actions.setQuestionIndex(index)),
+        setQuizStatus: (status) => dispatch(actions.setQuizStatus(status)) 
     }
 }
 

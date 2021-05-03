@@ -8,9 +8,9 @@ export const setLoading = (loadingStatus) => {
     }
 }
 
-export const setQuizStarted = (quizStatus) => {
+export const setQuizStatus = (quizStatus) => {
     return {
-        type: actions.SET_QUIZ_STARTED,
+        type: actions.SET_QUIZ_STATUS,
         quizStatus
     }
 }
@@ -58,8 +58,8 @@ export const fetchQuestions = (province) => {
             // Initialize Questions
             dispatch(initializeQuestions(response.data));
 
-            // Set quiz started to true
-            dispatch(setQuizStarted(true));
+            // Set quiz status to 1 (quiz started)
+            dispatch(setQuizStatus(1));
         }
         catch(error) {
             // Set loading to false

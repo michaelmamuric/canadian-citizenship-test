@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     isLoading: false,
-    isQuizStarted: false,
+    status: 0, // 0 - quiz not started, 1 - quiz in progress, 2 - quiz done
     error: null,
     currentQuestion: 0,
     score: 0,
@@ -23,10 +23,10 @@ const reducer = (state = initialState, action) => {
                 error: action.error
             }
         }
-        case actionTypes.SET_QUIZ_STARTED: {
+        case actionTypes.SET_QUIZ_STATUS: {
             return {
                 ...state,
-                isQuizStarted: action.quizStatus
+                status: action.quizStatus
             }
         }
         case actionTypes.INIT_QUESTIONS: {

@@ -2,14 +2,22 @@ import { connect } from 'react-redux';
 import { ChakraProvider, theme, Container } from '@chakra-ui/react';
 import LandingPage from './components/LandingPage/LandingPage';
 import Quiz from './components/Quiz/Quiz';
+import QuizDone from './components/QuizDone/QuizDone';
 
 const App = (props) => {
+  // Component to be rendered
+  let component;
+
+  switch(props.status) {
+    case 0: component = <LandingPage />; break;
+    case 1: component = <Quiz />; break;
+    default: component = <QuizDone />;
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <Container>
-        {
-          !props.isQuizStarted ? <LandingPage /> : <Quiz />
-        }
+        {component}
       </Container>
     </ChakraProvider>
   );
@@ -17,7 +25,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isQuizStarted: state.quiz.isQuizStarted
+    status: state.quiz.status
   }
 }
 

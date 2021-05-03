@@ -1,6 +1,6 @@
 export {
     setLoading,
-    setQuizStarted,
+    setQuizStatus,
     fetchQuestions,
     setQuestionIndex,
     setScore
