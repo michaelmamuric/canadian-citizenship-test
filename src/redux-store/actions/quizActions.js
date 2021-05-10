@@ -8,10 +8,10 @@ export const setLoading = (loadingStatus) => {
     }
 }
 
-export const setQuizStatus = (quizStatus) => {
+export const setQuizStatus = (status) => {
     return {
         type: actions.SET_QUIZ_STATUS,
-        quizStatus
+        status
     }
 }
 
@@ -43,6 +43,12 @@ export const setError = (error) => {
     }
 }
 
+export const resetQuiz = () => {
+    return {
+        type: actions.RESET_QUIZ
+    }
+}
+
 export const fetchQuestions = (province) => {
     return async(dispatch) => {
         try {
@@ -65,7 +71,6 @@ export const fetchQuestions = (province) => {
             // Set loading to false
             dispatch(setLoading(false));
 
-            console.log('Error', error);
             // Set error
             dispatch(setError(error.message));
         }

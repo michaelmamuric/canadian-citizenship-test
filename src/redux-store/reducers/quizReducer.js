@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_QUIZ_STATUS: {
             return {
                 ...state,
-                status: action.quizStatus
+                status: action.status
             }
         }
         case actionTypes.INIT_QUESTIONS: {
@@ -45,6 +45,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 score: action.score
+            }
+        }
+        case actionTypes.RESET_QUIZ: {
+            return {
+                ...state,
+                isLoading: false,
+                status: 0,
+                error: null,
+                currentQuestion: 0,
+                score: 0,
+                questions: []
             }
         }
         default:

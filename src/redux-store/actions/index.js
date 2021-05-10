@@ -3,5 +3,12 @@ export {
     setQuizStatus,
     fetchQuestions,
     setQuestionIndex,
-    setScore
+    setScore,
+    resetQuiz
 } from './quizActions';
+
+export {
+    setAnswer,
+    setAnswerSelected,
+    resetAnswers
+} from './inProgressActions'

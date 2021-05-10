@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import quizReducer from './quizReducer';
+import inProgressReducer from './inProgressReducer';
 
-// Only one reducer for this app, but can be expanded if necessary
 const mainReducer = combineReducers({
-    quiz: quizReducer
+    quiz: quizReducer,
+    inProgress: inProgressReducer
 });
 
 export default mainReducer;
