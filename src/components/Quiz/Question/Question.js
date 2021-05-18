@@ -38,9 +38,10 @@ const Question = (props) => {
             >
                 {question}
             </motion.h1>
-            {/* If there are only two choices, it could be a True or False type of question
-                If such is the case, don't shuffle the choiceList
-            */}
+            {
+                /* If there are only two choices, it could be a True or False type of question
+                If such is the case, don't shuffle the choiceList */
+            }
             <Choices 
                 choiceList={choiceList.length > 2 ? memoizedChoices : choiceList} 
                 correctAnswer={correctAnswer} 

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { ChakraProvider, theme, Container } from '@chakra-ui/react';
+import { ChakraProvider, theme, SimpleGrid, Box } from '@chakra-ui/react';
+import Header from './components/Header/Header';
 import LandingPage from './components/LandingPage/LandingPage';
 import Quiz from './components/Quiz/Quiz';
 import QuizDone from './components/QuizDone/QuizDone';
@@ -16,9 +17,14 @@ const App = (props) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container>
-        {component}
-      </Container>
+      <SimpleGrid columns={{ sm: 1}} spacing={2}>
+        <Box>
+          <Header />
+        </Box>
+        <Box>
+          {component}
+        </Box>
+      </SimpleGrid>
     </ChakraProvider>
   );
 }

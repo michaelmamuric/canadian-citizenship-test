@@ -36,14 +36,12 @@ const Choices = (props) => {
                                 isChecked={answerSelected}
                                 isReadOnly={answerSelected}
                             >
-                            <motion.span whileHover={{ scale: 1.05}}>
-                                {choice}
-                            </motion.span>
-                            </Radio>
+                            {choice}
                             {   
                                 answerSelected &&
                                 ( correctAnswer === choice ? <CheckCircleIcon /> : <SmallCloseIcon />)
                             }
+                            </Radio>
                         </motion.li>
                     )
                 })

@@ -49,7 +49,6 @@ const reducer = (state = initialState, action) => {
         }
         case actionTypes.RESET_QUIZ: {
             return {
-                ...state,
                 isLoading: false,
                 status: 0,
                 error: null,
