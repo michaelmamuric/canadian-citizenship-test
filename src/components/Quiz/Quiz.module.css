@@ -1,0 +1,16 @@
+.QuestionNumber {
+    font-size: 18pt;
+    font-weight: bold
+}
+
+.Question {
+    font-size: 16pt
+}
+
+.Choice {
+    font-size: 13pt
+}
+
+.List {
+    list-style-type: none;
+}

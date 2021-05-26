@@ -3,6 +3,7 @@ import { CheckCircleIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion';
 import * as actions from '../../../redux-store/actions/index';
 import { connect } from 'react-redux';
+import classes from '../Quiz.module.css';
 
 const Choices = (props) => {
 
@@ -20,7 +21,7 @@ const Choices = (props) => {
 
     return (
         <RadioGroup onChange={answerSelectedHandler}>
-            <ul style={{listStyleType: 'none'}}>
+            <ul className={classes.List}>
             {
                 choiceList.map((choice, index) => {
                     return (
@@ -32,11 +33,14 @@ const Choices = (props) => {
                             onClick={() => setAnswer(choice)}                          
                         >
                             <Radio 
+                                colorScheme="red"
                                 value={choice}
-                                isChecked={answerSelected}
+                                isChecked={choice === answer}
                                 isReadOnly={answerSelected}
                             >
-                            {choice}
+                            <span className={classes.Choice}>
+                                {choice}
+                            </span>
                             {   
                                 answerSelected &&
                                 ( correctAnswer === choice ? <CheckCircleIcon /> : <SmallCloseIcon />)

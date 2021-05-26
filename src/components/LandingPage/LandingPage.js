@@ -1,6 +1,7 @@
-import { Select } from '@chakra-ui/react';
+import { Select, Container } from '@chakra-ui/react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux-store/actions/index';
+import classes from './LandingPage.module.css';
 import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay';
 
 // Provinces
@@ -32,13 +33,22 @@ const LandingPage = (props) => {
 
     // Component to Render
     let componentToRender = (
-        <Select placeholder="Province" onChange={selectChangeHandler}>
-        {
-          options.map((province, index) => {
-            return <option key={index} value={province.abbr}>{province.name}</option>
-          })
-        }
-        </Select>
+        <>
+            <h1 className={classes.title}>Welcome to the Canadian Citizenship Practice Test.</h1>
+            <br />
+            <p>
+                To start, please select your province of residence. If you do not live in Canada, 
+                just select the province you are most interested in.
+            </p>
+            <br />
+            <Select placeholder="Province" onChange={selectChangeHandler}>
+            {
+                options.map((province, index) => {
+                    return <option key={index} value={province.abbr}>{province.name}</option>
+                })
+            }
+            </Select>
+        </>
     );
 
     // Render when page is loading

@@ -5,6 +5,7 @@ import arrayShuffle from 'array-shuffle';
 import { motion } from 'framer-motion';
 import Choices from '../Choices/Choices';
 import * as actions from '../../../redux-store/actions/index';
+import classes from '../Quiz.module.css';
 
 const Question = (props) => {
 
@@ -32,6 +33,7 @@ const Question = (props) => {
     return (
         <>
             <motion.h1
+                className={classes.Question}
                 initial={{ y: -50 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1}}
