@@ -10,7 +10,7 @@ import classes from '../Quiz.module.css';
 const Question = (props) => {
 
     // Destructure from props
-    const { question, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList, setQuizStatus, setAnswer, setAnswerSelected, answerSelected } = props;
+    const { question, correctAnswer, setCurrentQuestionIndex, currentQuestion, choiceList, setQuizStatus, answerSelected, numOfQuestions, setAnswer, setAnswerSelected } = props;
 
     // Create a memoized version of the choices to avoid reshuffling of choices
     // when an answer is picked
@@ -19,7 +19,7 @@ const Question = (props) => {
     // Handler when the Next button is clicked
     const nextButtonHandler = () => {
         // Quiz is still in progress
-        if(currentQuestion < 19) {
+        if(currentQuestion < (numOfQuestions - 1)) {
             setCurrentQuestionIndex(currentQuestion + 1);
             setAnswer('');
             setAnswerSelected(false);
@@ -29,6 +29,7 @@ const Question = (props) => {
             setQuizStatus(3);
         }
     }
+
 
     return (
         <>
@@ -49,7 +50,7 @@ const Question = (props) => {
                 correctAnswer={correctAnswer} 
             />
             <Button onClick={nextButtonHandler} isDisabled={!answerSelected}>
-                { currentQuestion < 19 ? 'Next' : 'Finish' }
+                { currentQuestion < (numOfQuestions - 1) ? 'Next' : 'Finish' }
             </Button>
         </>
     )
@@ -61,7 +62,8 @@ const mapStateToProps = (state) => {
         currentQuestion: state.quiz.currentQuestion,
         score: state.quiz.score,
         answer: state.inProgress.answer,
-        answerSelected: state.inProgress.answerSelected
+        answerSelected: state.inProgress.answerSelected,
+        numOfQuestions: state.quiz.questions.length
     }
 }
 

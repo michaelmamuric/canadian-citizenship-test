@@ -11,7 +11,8 @@ const Choices = (props) => {
     const { answerSelected, answer, correctAnswer, setAnswer, setAnswerSelected, setScore, choiceList, score } = props;
 
     // Handler when a choice is selected
-    const answerSelectedHandler = () => { 
+    const answerSelectedHandler = (answer) => {
+        setAnswer(answer);
         setAnswerSelected(true);
 
         if(answer === correctAnswer) {
@@ -20,7 +21,7 @@ const Choices = (props) => {
     }
 
     return (
-        <RadioGroup onChange={answerSelectedHandler}>
+        <RadioGroup onChange={answerSelectedHandler} value={answer}>
             <ul className={classes.List}>
             {
                 choiceList.map((choice, index) => {
@@ -29,14 +30,14 @@ const Choices = (props) => {
                             key={index}
                             initial={{ y: 1000 }}
                             animate={{ y: 0 }}
-                            transition={ { duration: 2 } }
-                            onClick={() => setAnswer(choice)}                          
+                            transition={ { duration: 2 } }                         
                         >
                             <Radio 
                                 colorScheme="red"
                                 value={choice}
                                 isChecked={choice === answer}
                                 isReadOnly={answerSelected}
+                                size="lg"
                             >
                             <span className={classes.Choice}>
                                 {choice}
